@@ -1,6 +1,39 @@
 import '/widgets/address.dart';
 import '/widgets/human.dart';
 
+/*
+[
+  {
+    "name": "Иван",
+    "surname": "Иванов",
+    "age": 17,
+    "address": [
+      {
+        "city": "Москва",
+        "street": "Баумана",
+        "house": "12а",
+        "flat": 12
+      },
+      {
+        "city": "Новосибирск",
+        "street": "Батурина",
+        "house": "1",
+        "flat": 1
+      },
+      {
+        "city": "Питер",
+        "street": "Моховая",
+        "house": "198г",
+        "flat": 561
+      }
+    ]
+  },
+  {
+
+  }
+]
+*/
+
 final humans = [
   Human(
     name: 'Иван',

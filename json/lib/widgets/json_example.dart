@@ -1,4 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:json/widgets/human.dart';
+
+import '/widgets/json_example_data.dart';
 
 class JsonExample extends StatelessWidget {
   const JsonExample({Key? key}) : super(key: key);
@@ -67,7 +72,21 @@ class JsonExampleProvider extends InheritedWidget {
 }
 
 class JsonExampleCoder {
-  void encode() {}
+  void encode() {
+    final objects = humans.map((e) => e.toJson()).toList();
+    final jsonString = jsonEncode(objects);
+    print(jsonString);
+  }
 
-  void decode() {}
+  void decode() {
+    try {
+      final json = jsonDecode(jsonString) as List<dynamic>;
+      final humans = json
+          .map((dynamic e) => Human.fromJson(e as Map<String, dynamic>))
+          .toList();
+      print(humans);
+    } catch (error) {
+      print(error);
+    }
+  }
 }
