@@ -1,19 +1,15 @@
 import 'package:flutter/material.dart';
 
-import 'package:hive_basics/widgets/hive_example_widget.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+import 'package:hive_basics/app/my_app.dart';
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+void main() async {
+  // if main() is asyncronous, then need to add this line:
+  WidgetsFlutterBinding.ensureInitialized();
 
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: HiveExampleWidget(),
-    );
-  }
+  await Hive.initFlutter();
+
+  const app = MyApp();
+  runApp(app);
 }
