@@ -1,26 +1,20 @@
 import 'package:flutter/material.dart';
 
+import 'package:todo/widgets/group_form/group_form_widget.dart';
+import 'package:todo/widgets/groups/groups_widget.dart';
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: ExampleWidget(),
-    );
-  }
-}
-
-class ExampleWidget extends StatelessWidget {
-  const ExampleWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Container(),
-      ),
+      routes: {
+        GroupsWidget.route: (context) => const GroupsWidget(),
+        GroupFormWidget.route: (context) => const GroupFormWidget(),
+      },
+      initialRoute: GroupsWidget.route,
     );
   }
 }
