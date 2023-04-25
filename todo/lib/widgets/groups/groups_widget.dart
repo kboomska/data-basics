@@ -81,8 +81,7 @@ class _GroupListRowWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = GroupsWidgetModelProvider.readOnly(context)!.model;
-    final group =
-        GroupsWidgetModelProvider.readOnly(context)!.model.groups[indexInList];
+    final group = model.groups[indexInList];
 
     return Slidable(
       endActionPane: ActionPane(
@@ -99,9 +98,7 @@ class _GroupListRowWidget extends StatelessWidget {
         ],
       ),
       child: ListTile(
-        onTap: () {
-          print('Tap on ListTile');
-        },
+        onTap: () => model.showTasks(context, indexInList),
         title: Text(group.name),
         trailing: const Icon(Icons.chevron_right),
       ),
