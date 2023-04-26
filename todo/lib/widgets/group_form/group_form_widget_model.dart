@@ -22,7 +22,7 @@ class GroupFormWidgetModel {
   }
 }
 
-class GroupFormWidgetModelProvider extends InheritedNotifier {
+class GroupFormWidgetModelProvider extends InheritedWidget {
   final GroupFormWidgetModel model;
 
   const GroupFormWidgetModelProvider({
@@ -43,5 +43,10 @@ class GroupFormWidgetModelProvider extends InheritedNotifier {
         .getElementForInheritedWidgetOfExactType<GroupFormWidgetModelProvider>()
         ?.widget;
     return widget is GroupFormWidgetModelProvider ? widget : null;
+  }
+
+  @override
+  bool updateShouldNotify(covariant InheritedNotifier<Listenable> oldWidget) {
+    return false;
   }
 }
