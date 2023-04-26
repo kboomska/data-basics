@@ -95,6 +95,13 @@ class _TaskListRowWidget extends StatelessWidget {
     final model = TasksWidgetModelProvider.readOnly(context)!.model;
     final task = model.tasks[indexInList];
 
+    final icon = task.isDone ? Icons.done : null;
+    final style = task.isDone
+        ? const TextStyle(
+            decoration: TextDecoration.lineThrough,
+          )
+        : null;
+
     return Slidable(
       endActionPane: ActionPane(
         extentRatio: 0.25,
@@ -110,9 +117,12 @@ class _TaskListRowWidget extends StatelessWidget {
         ],
       ),
       child: ListTile(
-        onTap: () {},
-        title: Text(task.text),
-        trailing: const Icon(Icons.chevron_right),
+        onTap: () => model.doneToggle(indexInList),
+        title: Text(
+          task.text,
+          style: style,
+        ),
+        trailing: Icon(icon),
       ),
     );
   }
