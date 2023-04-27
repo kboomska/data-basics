@@ -2,41 +2,40 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_slidable/flutter_slidable.dart';
 
-import 'package:todo/widgets/tasks/tasks_widget_model.dart';
+import 'package:todo/ui/widgets/tasks/tasks_widget_model.dart';
 
 class TasksWidget extends StatefulWidget {
-  static const route = '/groups/tasks';
+  final int groupKey;
 
-  const TasksWidget({super.key});
+  const TasksWidget({
+    super.key,
+    required this.groupKey,
+  });
 
   @override
   State<TasksWidget> createState() => _TasksWidgetState();
 }
 
 class _TasksWidgetState extends State<TasksWidget> {
-  TasksWidgetModel? _model;
+  late final TasksWidgetModel _model;
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-
-    if (_model == null) {
-      final groupKey = ModalRoute.of(context)!.settings.arguments as int;
-      _model = TasksWidgetModel(groupKey: groupKey);
-    }
+  void initState() {
+    super.initState();
+    _model = TasksWidgetModel(groupKey: widget.groupKey);
   }
 
   @override
   Widget build(BuildContext context) {
     return TasksWidgetModelProvider(
-      model: _model!,
+      model: _model,
       child: const _TasksWidgetBody(),
     );
   }
 }
 
 class _TasksWidgetBody extends StatelessWidget {
-  const _TasksWidgetBody({super.key});
+  const _TasksWidgetBody({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +59,7 @@ class _TasksWidgetBody extends StatelessWidget {
 }
 
 class _TaskListWidget extends StatelessWidget {
-  const _TaskListWidget({super.key});
+  const _TaskListWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -86,9 +85,9 @@ class _TaskListWidget extends StatelessWidget {
 class _TaskListRowWidget extends StatelessWidget {
   final int indexInList;
   const _TaskListRowWidget({
-    super.key,
+    Key? key,
     required this.indexInList,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

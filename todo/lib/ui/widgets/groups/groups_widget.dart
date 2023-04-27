@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'package:todo/widgets/groups/groups_widget_model.dart';
+import 'package:todo/ui/widgets/groups/groups_widget_model.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 class GroupsWidget extends StatefulWidget {
-  static const route = '/groups';
-
   const GroupsWidget({super.key});
 
   @override
@@ -25,7 +23,7 @@ class _GroupsWidgetState extends State<GroupsWidget> {
 }
 
 class _GroupsWidgetBody extends StatelessWidget {
-  const _GroupsWidgetBody({super.key});
+  const _GroupsWidgetBody({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +46,7 @@ class _GroupsWidgetBody extends StatelessWidget {
 }
 
 class _GroupListWidget extends StatelessWidget {
-  const _GroupListWidget({super.key});
+  const _GroupListWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -74,9 +72,9 @@ class _GroupListWidget extends StatelessWidget {
 class _GroupListRowWidget extends StatelessWidget {
   final int indexInList;
   const _GroupListRowWidget({
-    super.key,
+    Key? key,
     required this.indexInList,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

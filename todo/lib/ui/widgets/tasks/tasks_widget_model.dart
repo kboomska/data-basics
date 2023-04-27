@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:hive_flutter/hive_flutter.dart';
 
-import 'package:todo/widgets/task_form/task_form_widget.dart';
+import 'package:todo/ui/navigation/main_navigation.dart';
 import 'package:todo/domain/entity/group.dart';
 import 'package:todo/domain/entity/task.dart';
 
@@ -22,7 +22,8 @@ class TasksWidgetModel extends ChangeNotifier {
   }
 
   void showForm(BuildContext context) {
-    Navigator.of(context).pushNamed(TaskFormWidget.route, arguments: groupKey);
+    Navigator.of(context)
+        .pushNamed(MainNavigationRouteNames.taskForm, arguments: groupKey);
   }
 
   void _loadGroup() async {

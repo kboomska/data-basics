@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:todo/widgets/group_form/group_form_widget_model.dart';
+import 'package:todo/ui/widgets/group_form/group_form_widget_model.dart';
 
 class GroupFormWidget extends StatefulWidget {
-  static const route = '/groups/form';
-
   const GroupFormWidget({super.key});
 
   @override
@@ -23,7 +21,7 @@ class _GroupFormWidgetState extends State<GroupFormWidget> {
 }
 
 class _GroupFormWidgetBody extends StatelessWidget {
-  const _GroupFormWidgetBody({super.key});
+  const _GroupFormWidgetBody({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,14 +30,12 @@ class _GroupFormWidgetBody extends StatelessWidget {
         title: const Text('New group'),
         centerTitle: true,
       ),
-      body: Center(
-        child: Container(
-          child: const Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: 16,
-            ),
-            child: _GroupNameWidget(),
+      body: const Center(
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: 16,
           ),
+          child: _GroupNameWidget(),
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -55,7 +51,7 @@ class _GroupFormWidgetBody extends StatelessWidget {
 }
 
 class _GroupNameWidget extends StatelessWidget {
-  const _GroupNameWidget({super.key});
+  const _GroupNameWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
