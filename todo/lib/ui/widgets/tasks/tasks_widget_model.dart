@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:hive_flutter/hive_flutter.dart';
@@ -10,6 +11,7 @@ import 'package:todo/domain/entity/task.dart';
 class TasksWidgetModel extends ChangeNotifier {
   final TasksWidgetConfiguration configuration;
   late final Future<Box<Task>> _box;
+  ValueListenable<Object>? _listenableBox;
   var _tasks = <Task>[];
 
   // Used toList() to return a completely different list.
@@ -42,7 +44,15 @@ class TasksWidgetModel extends ChangeNotifier {
   Future<void> _setup() async {
     _box = BoxManager.instance.openTaskBox(configuration.groupKey);
     await _readTasksFromHive();
-    (await _box).listenable().addListener(_readTasksFromHive);
+    _listenableBox = (await _box).listenable();
+    _listenableBox?.addListener(_readTasksFromHive);
+  }
+
+  @override
+  void dispose() async {
+    _listenableBox?.removeListener(_readTasksFromHive);
+    await BoxManager.instance.closeBox(await _box);
+    super.dispose();
   }
 }
 

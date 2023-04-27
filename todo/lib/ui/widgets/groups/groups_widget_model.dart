@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:hive_flutter/hive_flutter.dart';
@@ -9,6 +10,7 @@ import 'package:todo/ui/widgets/tasks/tasks_widget.dart';
 
 class GroupsWidgetModel extends ChangeNotifier {
   late final Future<Box<Group>> _box;
+  ValueListenable<Object>? _listenableBox;
 
   var _groups = <Group>[];
 
@@ -52,7 +54,15 @@ class GroupsWidgetModel extends ChangeNotifier {
   void _setup() async {
     _box = BoxManager.instance.openGroupBox();
     await _readGroupsFromHive();
-    (await _box).listenable().addListener(_readGroupsFromHive);
+    _listenableBox = (await _box).listenable();
+    _listenableBox?.addListener(_readGroupsFromHive);
+  }
+
+  @override
+  void dispose() async {
+    _listenableBox?.removeListener(_readGroupsFromHive);
+    await BoxManager.instance.closeBox(await _box);
+    super.dispose();
   }
 }
 
