@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+
+import 'package:themoviedb/domain/data_providers/session_data_provider.dart';
 import 'package:themoviedb/domain/api_client/api_client.dart';
 
 class AuthWidgetModel extends ChangeNotifier {
   final _apiClient = ApiClient();
+  final _sessionDataProvider = SessionDataProvider();
 
   final loginTextController = TextEditingController();
   final passwordTextController = TextEditingController();
@@ -40,11 +43,18 @@ class AuthWidgetModel extends ChangeNotifier {
 
     _isAuthProgress = false;
 
-    if (_errorMessage != null || sessionId == null) {
+    if (_errorMessage != null) {
       notifyListeners();
+      return;
     }
 
-    // Navigator.of(context).pushNamed(routeName);
+    if (sessionId == null) {
+      _errorMessage = 'Неизвестная ошибка, повторите попытку';
+      return;
+    }
+
+    await _sessionDataProvider.setSessionId(sessionId);
+    Navigator.of(context).pushNamed('/main_screen');
   }
 }
 

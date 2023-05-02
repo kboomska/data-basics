@@ -19,8 +19,8 @@ class _AuthWidgetState extends State<AuthWidget> {
         centerTitle: true,
       ),
       body: ListView(
-        children: [
-          const _HeaderWidget(),
+        children: const [
+          _HeaderWidget(),
         ],
       ),
     );
