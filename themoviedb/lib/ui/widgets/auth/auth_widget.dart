@@ -169,6 +169,13 @@ class _AuthButtonWidget extends StatelessWidget {
     final model = AuthWidgetModelProvider.noticeOf(context)?.model;
     final onPressed =
         model?.canStartAuth == true ? () => model?.auth(context) : null;
+    final child = model?.isAuthProgress == true
+        ? const SizedBox(
+            height: 15,
+            width: 15,
+            child: CircularProgressIndicator(strokeWidth: 2),
+          )
+        : const Text('Login');
 
     return TextButton(
       onPressed: onPressed,
@@ -183,7 +190,7 @@ class _AuthButtonWidget extends StatelessWidget {
         padding: MaterialStateProperty.all(
             const EdgeInsets.symmetric(horizontal: 15)),
       ),
-      child: const Text('Login'),
+      child: child,
     );
   }
 }
