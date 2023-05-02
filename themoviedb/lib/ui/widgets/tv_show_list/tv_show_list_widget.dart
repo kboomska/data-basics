@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+
 import 'package:themoviedb/resources/resources.dart';
 
-class Movie {
+class TVShow {
   final int id;
   final String imageName;
   final String title;
   final String time;
   final String description;
 
-  Movie({
+  TVShow({
     required this.id,
     required this.imageName,
     required this.title,
@@ -17,105 +18,137 @@ class Movie {
   });
 }
 
-class MovieListWidget extends StatefulWidget {
-  MovieListWidget({super.key});
+class TWShowListWidget extends StatefulWidget {
+  TWShowListWidget({Key? key}) : super(key: key);
 
   @override
-  State<MovieListWidget> createState() => _MovieListWidgetState();
+  _TWShowListWidgetState createState() => _TWShowListWidgetState();
 }
 
-class _MovieListWidgetState extends State<MovieListWidget> {
+class _TWShowListWidgetState extends State<TWShowListWidget> {
   final _movies = [
-    Movie(
+    TVShow(
       id: 1,
-      imageName: AppImages.moviePlaceholder,
-      title: 'Джон Уик 3',
-      time: 'May 16, 2019',
-      description:
-          'Киллер-изгой бежит от байкеров-самураев и других неприятностей.',
+      imageName: AppImages.tvshowPlaceholder,
+      title: 'Flash',
+      time: 'April  7, 2021',
+      description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
     ),
-    Movie(
+    TVShow(
       id: 2,
-      imageName: AppImages.moviePlaceholder,
-      title: 'Оружейный барон',
-      time: 'May 16, 2019',
-      description:
-          'Киллер-изгой бежит от байкеров-самураев и других неприятностей.',
+      imageName: AppImages.tvshowPlaceholder,
+      title: 'Чудеса науки',
+      time: 'April  7, 2021',
+      description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
     ),
-    Movie(
+    TVShow(
       id: 3,
-      imageName: AppImages.moviePlaceholder,
-      title: 'Достучаться до небес',
-      time: 'May 16, 2019',
-      description:
-          'Киллер-изгой бежит от байкеров-самураев и других неприятностей.',
+      imageName: AppImages.tvshowPlaceholder,
+      title: 'Скользящие',
+      time: 'April  7, 2021',
+      description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
     ),
-    Movie(
+    TVShow(
       id: 4,
-      imageName: AppImages.moviePlaceholder,
-      title: 'Бойцовский клуб',
-      time: 'May 16, 2019',
-      description:
-          'Киллер-изгой бежит от байкеров-самураев и других неприятностей.',
+      imageName: AppImages.tvshowPlaceholder,
+      title: 'Академия амбрелла',
+      time: 'April  7, 2021',
+      description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
     ),
-    Movie(
+    TVShow(
       id: 5,
-      imageName: AppImages.moviePlaceholder,
-      title: 'Настоящий детектив',
-      time: 'May 16, 2019',
-      description:
-          'Киллер-изгой бежит от байкеров-самураев и других неприятностей.',
+      imageName: AppImages.tvshowPlaceholder,
+      title: 'Ходячие мертвицы',
+      time: 'April  7, 2021',
+      description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
     ),
-    Movie(
+    TVShow(
       id: 6,
-      imageName: AppImages.moviePlaceholder,
-      title: 'Джентельмены',
-      time: 'May 16, 2019',
-      description:
-          'Киллер-изгой бежит от байкеров-самураев и других неприятностей.',
+      imageName: AppImages.tvshowPlaceholder,
+      title: 'Пищеблок',
+      time: 'April  7, 2021',
+      description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
     ),
-    Movie(
+    TVShow(
       id: 7,
-      imageName: AppImages.moviePlaceholder,
-      title: 'Криминальное чтиво',
-      time: 'May 16, 2019',
-      description:
-          'Киллер-изгой бежит от байкеров-самураев и других неприятностей.',
+      imageName: AppImages.tvshowPlaceholder,
+      title: 'Вампиры средней полосы',
+      time: 'April  7, 2021',
+      description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
     ),
-    Movie(
+    TVShow(
       id: 8,
-      imageName: AppImages.moviePlaceholder,
-      title: 'Человек дождя',
-      time: 'May 16, 2019',
-      description:
-          'Киллер-изгой бежит от байкеров-самураев и других неприятностей.',
+      imageName: AppImages.tvshowPlaceholder,
+      title: 'Теория большого взрыва',
+      time: 'April  7, 2021',
+      description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
     ),
-    Movie(
+    TVShow(
       id: 9,
-      imageName: AppImages.moviePlaceholder,
-      title: 'Форрест Гамп',
-      time: 'May 16, 2019',
-      description:
-          'Киллер-изгой бежит от байкеров-самураев и других неприятностей.',
+      imageName: AppImages.tvshowPlaceholder,
+      title: 'Дество шелдона',
+      time: 'April  7, 2021',
+      description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
     ),
-    Movie(
+    TVShow(
       id: 10,
-      imageName: AppImages.moviePlaceholder,
-      title: 'Зеленая книга',
-      time: 'May 16, 2019',
-      description:
-          'Киллер-изгой бежит от байкеров-самураев и других неприятностей.',
+      imageName: AppImages.tvshowPlaceholder,
+      title: 'Как я встретил вашу маму',
+      time: 'April  7, 2021',
+      description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
+    ),
+    TVShow(
+      id: 11,
+      imageName: AppImages.tvshowPlaceholder,
+      title: 'Гравити фолз',
+      time: 'April  7, 2021',
+      description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
+    ),
+    TVShow(
+      id: 12,
+      imageName: AppImages.tvshowPlaceholder,
+      title: 'Утинные истории',
+      time: 'April  7, 2021',
+      description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
+    ),
+    TVShow(
+      id: 13,
+      imageName: AppImages.tvshowPlaceholder,
+      title: 'Джентельмены',
+      time: 'April  7, 2021',
+      description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
+    ),
+    TVShow(
+      id: 14,
+      imageName: AppImages.tvshowPlaceholder,
+      title: 'Наследие юпитера',
+      time: 'April  7, 2021',
+      description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
+    ),
+    TVShow(
+      id: 15,
+      imageName: AppImages.tvshowPlaceholder,
+      title: 'Друзья',
+      time: 'April  7, 2021',
+      description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
+    ),
+    TVShow(
+      id: 16,
+      imageName: AppImages.tvshowPlaceholder,
+      title: 'Квантовый скачек',
+      time: 'April  7, 2021',
+      description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
     ),
   ];
 
-  var _filteredMovies = <Movie>[];
+  var _filteredMovies = <TVShow>[];
 
   final _searchController = TextEditingController();
 
   void _searchMovies() {
     final query = _searchController.text;
     if (query.isNotEmpty) {
-      _filteredMovies = _movies.where((Movie movie) {
+      _filteredMovies = _movies.where((TVShow movie) {
         return movie.title.toLowerCase().contains(query.toLowerCase());
       }).toList();
     } else {
@@ -127,6 +160,7 @@ class _MovieListWidgetState extends State<MovieListWidget> {
   @override
   void initState() {
     super.initState();
+
     _filteredMovies = _movies;
     _searchController.addListener(_searchMovies);
   }
@@ -148,7 +182,7 @@ class _MovieListWidgetState extends State<MovieListWidget> {
           keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           itemCount: _filteredMovies.length,
           itemExtent: 163,
-          itemBuilder: (context, index) {
+          itemBuilder: (BuildContext context, int index) {
             final movie = _filteredMovies[index];
             return Padding(
               padding: const EdgeInsets.symmetric(
@@ -192,22 +226,22 @@ class _MovieListWidgetState extends State<MovieListWidget> {
                               ),
                               Text(
                                 movie.title,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
                                 style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                 ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
                               ),
                               const SizedBox(
                                 height: 5,
                               ),
                               Text(
                                 movie.time,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
                                 style: const TextStyle(
                                   color: Colors.grey,
                                 ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
                               ),
                               const SizedBox(
                                 height: 20,

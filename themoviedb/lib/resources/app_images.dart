@@ -9,4 +9,7 @@ class AppImages {
   static const String recommendation = 'images/recommendation.jpg';
   static const String topHeader = 'images/top_header.jpg';
   static const String topHeaderSubImage = 'images/top_header_sub_image.jpg';
+  static const String trailerBackground = 'images/trailer_background.jpeg';
+  static const String trailerPreview = 'images/trailer_preview.jpeg';
+  static const String tvshowPlaceholder = 'images/tvshow_placeholder.jpeg';
 }
