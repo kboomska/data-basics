@@ -55,7 +55,8 @@ class AuthWidgetModel extends ChangeNotifier {
     }
 
     await _sessionDataProvider.setSessionId(sessionId);
-    Navigator.of(context).pushNamed(MainNavigationRouteNames.mainScreen);
+    Navigator.of(context)
+        .pushReplacementNamed(MainNavigationRouteNames.mainScreen);
   }
 }
 
