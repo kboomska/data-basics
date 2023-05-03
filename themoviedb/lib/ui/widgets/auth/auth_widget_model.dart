@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:themoviedb/domain/data_providers/session_data_provider.dart';
+import 'package:themoviedb/ui/navigation/main_navigation.dart';
 import 'package:themoviedb/domain/api_client/api_client.dart';
 
 class AuthWidgetModel extends ChangeNotifier {
@@ -54,7 +55,7 @@ class AuthWidgetModel extends ChangeNotifier {
     }
 
     await _sessionDataProvider.setSessionId(sessionId);
-    Navigator.of(context).pushNamed('/main_screen');
+    Navigator.of(context).pushNamed(MainNavigationRouteNames.mainScreen);
   }
 }
 
