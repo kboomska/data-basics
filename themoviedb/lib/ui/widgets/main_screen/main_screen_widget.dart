@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:themoviedb/domain/data_providers/session_data_provider.dart';
 
+import 'package:themoviedb/ui/widgets/main_screen/main_screen_widget_model.dart';
+import 'package:themoviedb/domain/data_providers/session_data_provider.dart';
 import 'package:themoviedb/ui/widgets/tv_show_list/tv_show_list_widget.dart';
 import 'package:themoviedb/ui/widgets/movie_list/movie_list_widget.dart';
+import 'package:themoviedb/Library/Widgets/Inherited/provider.dart';
 import 'package:themoviedb/ui/widgets/news/news_widget.dart';
 
 class MainScreenWidget extends StatefulWidget {
@@ -24,6 +26,8 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final model = NotifierProvider.read<MainScreenWidgetModel>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('TMDB'),

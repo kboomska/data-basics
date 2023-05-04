@@ -59,28 +59,3 @@ class AuthWidgetModel extends ChangeNotifier {
         .pushReplacementNamed(MainNavigationRouteNames.mainScreen);
   }
 }
-
-class AuthWidgetModelProvider extends InheritedNotifier {
-  final AuthWidgetModel model;
-
-  const AuthWidgetModelProvider({
-    super.key,
-    required this.model,
-    required Widget child,
-  }) : super(
-          notifier: model,
-          child: child,
-        );
-
-  static AuthWidgetModelProvider? noticeOf(BuildContext context) {
-    return context
-        .dependOnInheritedWidgetOfExactType<AuthWidgetModelProvider>();
-  }
-
-  static AuthWidgetModelProvider? readOnly(BuildContext context) {
-    final widget = context
-        .getElementForInheritedWidgetOfExactType<AuthWidgetModelProvider>()
-        ?.widget;
-    return widget is AuthWidgetModelProvider ? widget : null;
-  }
-}
