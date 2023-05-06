@@ -38,8 +38,19 @@ class AuthWidgetModel extends ChangeNotifier {
         username: login,
         password: password,
       );
-    } catch (error) {
-      _errorMessage = 'Неправильныый логин или пароль!';
+    } on ApiClientException catch (e) {
+      switch (e.type) {
+        case ApiClientExceptionType.network:
+          _errorMessage =
+              'Сервер не доступен. Проверьте подключение к сети интернет';
+          break;
+        case ApiClientExceptionType.auth:
+          _errorMessage = 'Неправильныый логин или пароль!';
+          break;
+        case ApiClientExceptionType.other:
+          _errorMessage = 'Произошла ошибка. Попробуйте еще раз';
+          break;
+      }
     }
 
     _isAuthProgress = false;
