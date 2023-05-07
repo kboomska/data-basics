@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:themoviedb/domain/api_client/api_client.dart';
+
+import 'package:intl/intl.dart';
 
 import 'package:themoviedb/ui/widgets/movie_list/movie_list_model.dart';
 import 'package:themoviedb/Library/Widgets/Inherited/provider.dart';
+import 'package:themoviedb/domain/api_client/api_client.dart';
 
 class MovieListWidget extends StatelessWidget {
   const MovieListWidget({super.key});
@@ -22,6 +24,7 @@ class MovieListWidget extends StatelessWidget {
           itemBuilder: (context, index) {
             final movie = model.movies[index];
             final posterPath = movie.posterPath;
+
             return Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 16,
@@ -80,7 +83,7 @@ class MovieListWidget extends StatelessWidget {
                                 height: 5,
                               ),
                               Text(
-                                movie.releaseDate?.toString() ?? '-',
+                                model.stringFromDate(movie.releaseDate),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: const TextStyle(
