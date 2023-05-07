@@ -9,15 +9,26 @@ import 'package:themoviedb/domain/entity/movie.dart';
 class MovieListModel extends ChangeNotifier {
   final _apiClient = ApiClient();
   final _movies = <Movie>[];
-  final _dateFormat = DateFormat.yMMMMd();
+  late DateFormat _dateFormat;
+  String _locale = '';
 
   List<Movie> get movies => List.unmodifiable(_movies);
 
   String stringFromDate(DateTime? date) =>
       date != null ? _dateFormat.format(date) : '';
 
-  Future<void> loadMovies() async {
-    final moviesResponse = await _apiClient.popularMovies(1, 'ru-RU');
+  void setupLocale(BuildContext context) {
+    final locale = Localizations.localeOf(context).toLanguageTag();
+
+    if (_locale == locale) return;
+    _locale = locale;
+    _dateFormat = DateFormat.yMMMMd(_locale);
+    _movies.clear();
+    _loadMovies();
+  }
+
+  Future<void> _loadMovies() async {
+    final moviesResponse = await _apiClient.popularMovies(1, _locale);
     _movies.addAll(moviesResponse.movies);
     notifyListeners();
   }
