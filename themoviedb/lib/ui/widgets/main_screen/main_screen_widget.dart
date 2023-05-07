@@ -4,6 +4,7 @@ import 'package:themoviedb/ui/widgets/main_screen/main_screen_widget_model.dart'
 import 'package:themoviedb/domain/data_providers/session_data_provider.dart';
 import 'package:themoviedb/ui/widgets/tv_show_list/tv_show_list_widget.dart';
 import 'package:themoviedb/ui/widgets/movie_list/movie_list_widget.dart';
+import 'package:themoviedb/ui/widgets/movie_list/movie_list_model.dart';
 import 'package:themoviedb/Library/Widgets/Inherited/provider.dart';
 import 'package:themoviedb/ui/widgets/news/news_widget.dart';
 
@@ -16,12 +17,20 @@ class MainScreenWidget extends StatefulWidget {
 
 class _MainScreenWidgetState extends State<MainScreenWidget> {
   int _selectedTab = 0;
+  final movieListModel = MovieListModel();
 
   void onSelectTab(int index) {
     if (_selectedTab == index) return;
     setState(() {
       _selectedTab = index;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    movieListModel.loadMovies();
   }
 
   @override
@@ -43,7 +52,10 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
         index: _selectedTab,
         children: [
           const NewsWidget(),
-          MovieListWidget(),
+          NotifierProvider(
+            model: movieListModel,
+            child: const MovieListWidget(),
+          ),
           TWShowListWidget(),
         ],
       ),

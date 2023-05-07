@@ -123,7 +123,7 @@ class ApiClient {
       parser,
       <String, dynamic>{
         'api_key': _apiKey,
-        'page': page,
+        'page': page.toString(),
         'language': language,
       },
     );
