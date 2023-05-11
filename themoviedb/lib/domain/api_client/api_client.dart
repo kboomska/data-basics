@@ -15,7 +15,7 @@ class ApiClient {
   final _client = HttpClient();
   static const _host = 'https://api.themoviedb.org/3';
   static const _imageUrl = 'https://image.tmdb.org/t/p/w500';
-  static const _apiKey = 'c39d9b56462286f3b810487ba9b12946';
+  static const _apiKey = String.fromEnvironment('TMDB_KEY');
 
   static String imageUrl(String path) => _imageUrl + path;
 
