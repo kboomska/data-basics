@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:themoviedb/ui/widgets/movie_details/movie_details_widget_model.dart';
 import 'package:themoviedb/ui/widgets/main_screen/main_screen_widget_model.dart';
 import 'package:themoviedb/ui/widgets/movie_details/movie_details_widget.dart';
 import 'package:themoviedb/ui/widgets/main_screen/main_screen_widget.dart';
@@ -20,11 +21,11 @@ class MainNavigation {
 
   final routes = <String, Widget Function(BuildContext)>{
     MainNavigationRouteNames.auth: (context) => NotifierProvider(
-          model: AuthWidgetModel(),
+          create: () => AuthWidgetModel(),
           child: const AuthWidget(),
         ),
     MainNavigationRouteNames.mainScreen: (context) => NotifierProvider(
-          model: MainScreenWidgetModel(),
+          create: () => MainScreenWidgetModel(),
           child: const MainScreenWidget(),
         ),
   };
@@ -34,7 +35,10 @@ class MainNavigation {
         final arguments = settings.arguments;
         final movieId = arguments is int ? arguments : 0;
         return MaterialPageRoute(
-          builder: (context) => MovieDetailsWidget(movieId: movieId),
+          builder: (context) => NotifierProvider(
+            create: () => MovieDetailsWidgetModel(movieId),
+            child: const MovieDetailsWidget(),
+          ),
         );
       default:
         const widget = Text('Navigation error!!!');
