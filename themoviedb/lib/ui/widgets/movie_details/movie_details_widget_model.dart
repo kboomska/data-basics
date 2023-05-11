@@ -9,7 +9,7 @@ class MovieDetailsWidgetModel extends ChangeNotifier {
   final _apiClient = ApiClient();
 
   final int movieId;
-  late final String _locale;
+  String _locale = '';
   MovieDetails? _movieDetails;
   late DateFormat _dateFormat;
 
