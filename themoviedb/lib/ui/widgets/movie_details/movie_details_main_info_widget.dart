@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:themoviedb/domain/api_client/api_client.dart';
+import 'package:themoviedb/domain/entity/movie_details_credits.dart';
 
 import 'package:themoviedb/ui/widgets/movie_details/movie_details_widget_model.dart';
 import 'package:themoviedb/ui/widgets/elements/radial_percent_widget.dart';
@@ -30,7 +31,10 @@ class MovieDetailsMainInfoWidget extends StatelessWidget {
         SizedBox(
           height: 30,
         ),
-        _StaffWidget(),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10),
+          child: _CrewWidget(),
+        ),
       ],
     );
   }
@@ -267,71 +271,82 @@ class _SummaryWidget extends StatelessWidget {
   }
 }
 
-class _StaffWidget extends StatelessWidget {
-  final staffStyle = const TextStyle(
-    color: Colors.white,
-    fontSize: 14,
-    fontWeight: FontWeight.w600,
-  );
-
-  final jobTitleStyle = const TextStyle(
-    color: Colors.white,
-    fontSize: 14,
-    fontWeight: FontWeight.w400,
-  );
-  const _StaffWidget({super.key});
+class _CrewWidget extends StatelessWidget {
+  const _CrewWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final model = NotifierProvider.watch<MovieDetailsWidgetModel>(context);
+    var crew = model?.movieDetails?.credits.crew;
+    if (crew == null || crew.isEmpty) return const SizedBox.shrink();
+    crew = crew.length > 4 ? crew.sublist(0, 4) : crew;
+    var crewChunks = <List<Employee>>[];
+    for (var i = 0; i < crew.length; i += 2) {
+      crewChunks
+          .add(crew.sublist(i, i + 2 > crew.length ? crew.length : i + 2));
+    }
+
     return Column(
-      children: [
-        Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Chad Stahelski', style: staffStyle),
-                Text('Director', style: jobTitleStyle),
-              ],
+      children: crewChunks
+          .map(
+            (chunk) => Padding(
+              padding: const EdgeInsets.only(bottom: 30),
+              child: _CrewWidgetRow(employees: chunk),
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Chad Stahelski', style: staffStyle),
-                Text('Director', style: jobTitleStyle),
-              ],
+          )
+          .toList(),
+    );
+  }
+}
+
+class _CrewWidgetRow extends StatelessWidget {
+  final List<Employee> employees;
+
+  const _CrewWidgetRow({super.key, required this.employees});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: employees
+          .map(
+            (employee) => _CrewWidgetRowItem(
+              employee: employee,
             ),
-          ],
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Chad Stahelski', style: staffStyle),
-                Text('Director', style: jobTitleStyle),
-              ],
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Chad Stahelski', style: staffStyle),
-                Text('Director', style: jobTitleStyle),
-              ],
-            ),
-          ],
-        ),
-        const SizedBox(
-          height: 30,
-        ),
-      ],
+          )
+          .toList(),
+    );
+  }
+}
+
+class _CrewWidgetRowItem extends StatelessWidget {
+  final Employee employee;
+
+  const _CrewWidgetRowItem({super.key, required this.employee});
+
+  @override
+  Widget build(BuildContext context) {
+    const staffStyle = TextStyle(
+      color: Colors.white,
+      fontSize: 14,
+      fontWeight: FontWeight.w600,
+    );
+
+    const jobTitleStyle = TextStyle(
+      color: Colors.white,
+      fontSize: 14,
+      fontWeight: FontWeight.w400,
+    );
+
+    return Expanded(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(employee.name, style: staffStyle),
+          Text(employee.job, style: jobTitleStyle),
+        ],
+      ),
     );
   }
 }
