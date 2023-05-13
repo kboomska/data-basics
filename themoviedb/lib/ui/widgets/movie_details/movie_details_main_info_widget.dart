@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:themoviedb/domain/api_client/api_client.dart';
-import 'package:themoviedb/domain/entity/movie_details_credits.dart';
 
 import 'package:themoviedb/ui/widgets/movie_details/movie_details_widget_model.dart';
 import 'package:themoviedb/ui/widgets/elements/radial_percent_widget.dart';
+import 'package:themoviedb/domain/entity/movie_details_credits.dart';
 import 'package:themoviedb/Library/Widgets/Inherited/provider.dart';
+import 'package:themoviedb/ui/navigation/main_navigation.dart';
+import 'package:themoviedb/domain/api_client/api_client.dart';
 
 class MovieDetailsMainInfoWidget extends StatelessWidget {
   const MovieDetailsMainInfoWidget({super.key});
@@ -151,8 +152,16 @@ class _ScoreWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = NotifierProvider.watch<MovieDetailsWidgetModel>(context);
-    final voteAverage = model?.movieDetails?.voteAverage ?? 0;
+    final movieDetails =
+        NotifierProvider.watch<MovieDetailsWidgetModel>(context)?.movieDetails;
+    final voteAverage = movieDetails?.voteAverage ?? 0;
+    final videos = movieDetails?.videos.results
+        .where(
+          (video) => video.type == 'Trailer' && video.site == 'YouTube',
+        )
+        .toList();
+    final trailerKey = videos?.isNotEmpty == true ? videos?.first.key : null;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -192,24 +201,45 @@ class _ScoreWidget extends StatelessWidget {
           ),
         ),
         Container(width: 1, height: 15, color: Colors.grey),
-        TextButton(
-          onPressed: () {},
-          child: Row(
-            children: const [
-              Icon(
-                Icons.play_arrow,
-                color: Colors.white,
-              ),
-              SizedBox(width: 8),
-              Text(
-                'Play Trailer',
-                style: TextStyle(
-                  color: Colors.white,
+        trailerKey != null
+            ? TextButton(
+                onPressed: () {
+                  Navigator.of(context).pushNamed(
+                    MainNavigationRouteNames.movieTrailer,
+                    arguments: trailerKey,
+                  );
+                },
+                child: Row(
+                  children: const [
+                    Icon(
+                      Icons.play_arrow,
+                      color: Colors.white,
+                    ),
+                    SizedBox(width: 8),
+                    Text(
+                      'Play Trailer',
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
                 ),
+              )
+            : Row(
+                children: const [
+                  Icon(
+                    Icons.play_arrow,
+                    color: Colors.grey,
+                  ),
+                  SizedBox(width: 8),
+                  Text(
+                    'Play Trailer',
+                    style: TextStyle(
+                      color: Colors.grey,
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
-        ),
       ],
     );
   }
