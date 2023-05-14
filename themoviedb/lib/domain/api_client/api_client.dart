@@ -12,6 +12,19 @@ class ApiClientException implements Exception {
   ApiClientException(this.type);
 }
 
+enum MediaType { movie, tv }
+
+extension MediaTypeAsString on MediaType {
+  String asString() {
+    switch (this) {
+      case MediaType.movie:
+        return 'movie';
+      case MediaType.tv:
+        return 'tv';
+    }
+  }
+}
+
 class ApiClient {
   final _client = HttpClient();
   static const _host = 'https://api.themoviedb.org/3';
@@ -221,6 +234,36 @@ class ApiClient {
     );
 
     return result;
+  }
+
+  Future<void> markAsFavorite({
+    required int accountId,
+    required String sessionId,
+    required MediaType mediaType,
+    required int mediaId,
+    required bool isFavorite,
+  }) async {
+    final parameters = <String, dynamic>{
+      'media_type': mediaType.asString(),
+      'media_id': mediaId,
+      'favorite': isFavorite,
+    };
+
+    String parser(dynamic json) {
+      final jsonMap = json as Map<String, dynamic>;
+      final result = jsonMap['status_message'] as String;
+      return result;
+    }
+
+    _post(
+      '/account/$accountId/favorite',
+      parser,
+      parameters,
+      <String, dynamic>{
+        'api_key': _apiKey,
+        'session_id': sessionId,
+      },
+    );
   }
 
   Future<String> _validateUser({
