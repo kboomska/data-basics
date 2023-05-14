@@ -106,6 +106,17 @@ class _TopPostersWidget extends StatelessWidget {
                 ? Image.network(ApiClient.imageUrl(posterPath))
                 : const SizedBox.shrink(),
           ),
+          Positioned(
+            top: 5,
+            right: 5,
+            child: IconButton(
+              onPressed: () {},
+              icon: Icon(
+                model?.isFavorite == true ? Icons.star : Icons.star_border,
+                color: Colors.amber,
+              ),
+            ),
+          ),
         ],
       ),
     );
