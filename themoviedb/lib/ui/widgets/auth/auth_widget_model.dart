@@ -52,6 +52,8 @@ class AuthWidgetModel extends ChangeNotifier {
         case ApiClientExceptionType.other:
           _errorMessage = 'Произошла ошибка. Попробуйте еще раз';
           break;
+        default:
+          break;
       }
     }
 

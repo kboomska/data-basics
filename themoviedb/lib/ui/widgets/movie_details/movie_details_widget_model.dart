@@ -15,6 +15,7 @@ class MovieDetailsWidgetModel extends ChangeNotifier {
   bool _isFavorite = false;
   MovieDetails? _movieDetails;
   late DateFormat _dateFormat;
+  Future<void>? Function()? onSessionExpired;
 
   MovieDetailsWidgetModel(this.movieId);
 
@@ -35,12 +36,16 @@ class MovieDetailsWidgetModel extends ChangeNotifier {
   }
 
   Future<void> loadDetails() async {
-    final sessionId = await _sessionDataProvider.getSessionId();
-    _movieDetails = await _apiClient.movieDetails(movieId, _locale);
-    if (sessionId != null) {
-      _isFavorite = await _apiClient.isFavorite(movieId, sessionId);
+    try {
+      final sessionId = await _sessionDataProvider.getSessionId();
+      _movieDetails = await _apiClient.movieDetails(movieId, _locale);
+      if (sessionId != null) {
+        _isFavorite = await _apiClient.isFavorite(movieId, sessionId);
+      }
+      notifyListeners();
+    } on ApiClientException catch (e) {
+      _handleApiClientException(e);
     }
-    notifyListeners();
   }
 
   Future<void> toggleFavorite() async {
@@ -49,15 +54,29 @@ class MovieDetailsWidgetModel extends ChangeNotifier {
 
     if (sessionId == null || accountId == null) return;
 
-    final newFavoriteValue = !_isFavorite;
-    _isFavorite = newFavoriteValue;
+    _isFavorite = !_isFavorite;
     notifyListeners();
-    await _apiClient.markAsFavorite(
-      accountId: accountId,
-      sessionId: sessionId,
-      mediaType: MediaType.movie,
-      mediaId: movieId,
-      isFavorite: newFavoriteValue,
-    );
+
+    try {
+      await _apiClient.markAsFavorite(
+        accountId: accountId,
+        sessionId: sessionId,
+        mediaType: MediaType.movie,
+        mediaId: movieId,
+        isFavorite: _isFavorite,
+      );
+    } on ApiClientException catch (e) {
+      _handleApiClientException(e);
+    }
+  }
+
+  void _handleApiClientException(ApiClientException exception) {
+    switch (exception.type) {
+      case ApiClientExceptionType.sessionExpired:
+        onSessionExpired?.call();
+        break;
+      default:
+        print(exception);
+    }
   }
 }
